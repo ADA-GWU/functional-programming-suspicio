@@ -34,15 +34,65 @@ int main(void)
 
     int n;
 
-	cin >> n;
+    cin >> n;
 
-	int a = 2, b = 1;
+    vector < int > vis(n, 0);
 
-	while (a + b <= n)
-	{
-		b = a + b;
-		a *= 6;
-	}
+    int cnt = n, now, md = 0;
 
-	cout << b;
+    while (cnt != 1)
+    {
+        now = 0;
+        if (md == 0)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                if (!vis[i])
+                {
+                    now++;
+                    if (now % 2 == 0)
+                    {
+                        vis[i] = 1;
+                        cnt--;
+                    }
+                }
+            }
+        }
+        else if (md == 1)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                if (!vis[i])
+                {
+                    now++;
+                    if (now % 2 == 1)
+                    {
+                        vis[i] = 1;
+                        cnt--;
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < n; i++)
+            {
+                if (!vis[i])
+                {
+                    now++;
+                    if (now % 3 == 0)
+                    {
+                        vis[i] = 1;
+                        cnt--;
+                    }
+                }
+            }
+        }
+        md++;
+        md %= 3;
+    }
+
+    for (int i = 0; i < n; i++)
+        if (vis[i] == 0)
+            cout << i + 1 << endl;
 }
